@@ -12,22 +12,26 @@
   </ul>
 </template>
 
-<script>
-import { mapState, mapActions } from 'vuex'
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
 import currency from '../filters/currency'
+import { ns } from '../store'
 
-export default {
-  computed: mapState({
-    products: state => state.products.all
-  }),
-  methods: mapActions('cart', [
-    'addProductToCart'
-  ]),
+@Component({
+  filters: { currency }
+  })
+export default class ProductList extends Vue {
   created () {
-    this.$store.dispatch('products/fetchAllProducts')
-  },
-  filters: {
-    currency
+    this.fetchAllProducts()
   }
+
+  @ns.products.Action
+  fetchAllProducts: Function
+
+  @ns.products.Getter('getAll')
+  products: Item[]
+
+  @ns.cart.Action
+  addProductToCart: Function
 }
 </script>

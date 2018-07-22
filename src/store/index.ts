@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import cart from './modules/cart'
 import products from './modules/products'
 import createLogger from 'vuex/dist/logger'
+import { namespace } from 'vuex-class'
 
 Vue.use(Vuex)
 
@@ -17,3 +18,8 @@ export default new Vuex.Store({
     strict: debug,
     plugins: debug ? [createLogger(loggerOption)] : []
 })
+
+export const ns = {
+    cart: namespace('cart'),
+    products: namespace('products'),
+}

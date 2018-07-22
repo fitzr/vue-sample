@@ -6,7 +6,11 @@ const state: ProductsState = {
 }
 
 // getters
-const getters = {}
+const getters = {
+    getAll (state: ProductsState): Item[] {
+        return state.all
+    }
+}
 
 // actions
 const actions = {

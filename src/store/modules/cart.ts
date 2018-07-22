@@ -9,24 +9,26 @@ const state: CartState = {
 
 // getters
 const getters = {
-  cartProducts: (state: CartState, getters: any, rootState: any): any => {
-    return state.items.map(({ id, quantity }) => {
-      const product = rootState.products.all.find((product: Item) => product.id === id)
-      return {
-        // @ts-ignore
-        title: product.title,
-        // @ts-ignore
-        price: product.price,
-        quantity
-      }
-    })
-  },
+    cartProducts: (state: CartState, getters: any, rootState: any): any => {
+        return state.items.map(({id, quantity}) => {
+            const product = rootState.products.all.find((product: Item) => product.id === id)
+            return {
+                // @ts-ignore
+                title: product.title,
+                // @ts-ignore
+                price: product.price,
+                quantity
+            }
+        })
+    },
 
-  cartTotalPrice: (state: CartState, getters: any) => {
-    return getters.cartProducts.reduce((total: number, product: {price: number, quantity: number}) => {
-      return total + product.price * product.quantity
-    }, 0)
-  }
+    cartTotalPrice: (state: CartState, getters: any): number => {
+        return getters.cartProducts.reduce((total: number, product: { price: number, quantity: number }) => {
+            return total + product.price * product.quantity
+        }, 0)
+    },
+
+    checkoutStatus: (state: CartState) => state.checkoutStatus
 }
 
 // actions
